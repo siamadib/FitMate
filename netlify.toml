@@ -1,0 +1,5 @@
+# FitMate is a plain static site (vanilla HTML/CSS/JS) with no build step.
+# The site lives in the FitMate/ subfolder, so that folder is published as-is.
+[build]
+  publish = "FitMate"
+  command = "echo 'No build step required: static site'"
