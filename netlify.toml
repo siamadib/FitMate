@@ -1,0 +1,9 @@
+# Netlify configuration for FitMate
+[build]
+  publish = "."
+  command = "echo 'No build step required: static mobile-first web app'"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
