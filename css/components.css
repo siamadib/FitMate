@@ -1,0 +1,1102 @@
+/**
+ * FitMate Component Styles
+ * Cards, Buttons, Inputs, Chat Bubbles, Modals, Heatmaps, and Trackers
+ */
+
+/* ==================== CARDS & CONTAINERS ==================== */
+.card {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition-smooth);
+}
+
+.card:hover {
+  border-color: rgba(255, 122, 41, 0.2);
+}
+
+.card-glow {
+  border-color: var(--border-accent);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6), 0 0 16px var(--accent-glow-subtle);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.card-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.card-subtitle {
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.card-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+/* ==================== METRIC PILLS & BADGES ==================== */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.badge-green {
+  background: var(--success-bg);
+  color: var(--success);
+  border: 1px solid var(--success-border);
+}
+
+.badge-orange {
+  background: rgba(255, 122, 41, 0.15);
+  color: var(--accent-primary);
+  border: 1px solid rgba(255, 122, 41, 0.3);
+}
+
+.badge-muted {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+/* ==================== BUTTONS ==================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition-smooth);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--accent-gradient);
+  color: #ffffff;
+  box-shadow: var(--glow-orange);
+}
+
+.btn-primary:hover, .btn-primary:active {
+  box-shadow: 0 0 28px rgba(255, 122, 41, 0.55);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--bg-card-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border-card);
+}
+
+.btn-secondary:hover {
+  background: #2e2825;
+  border-color: var(--border-accent);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary);
+  border-color: var(--border-card);
+}
+
+.btn-sm {
+  padding: 7px 12px;
+  font-size: 12.5px;
+  border-radius: var(--radius-sm);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 0;
+}
+
+/* ==================== FORM INPUTS ==================== */
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(18, 16, 15, 0.8);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  transition: var(--transition-smooth);
+  outline: none;
+}
+
+.form-control:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px var(--accent-glow-subtle);
+}
+
+.form-control::placeholder {
+  color: var(--text-muted);
+}
+
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff7a29' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+/* ==================== 2x2 STATS GRID (As shown in screenshot) ==================== */
+.stats-2x2-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.stat-metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 110px;
+  position: relative;
+  transition: var(--transition-smooth);
+}
+
+.stat-metric-card:hover {
+  border-color: rgba(255, 122, 41, 0.25);
+  background: var(--bg-card-elevated);
+}
+
+.stat-metric-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.stat-arrow-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.stat-metric-value-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+
+.stat-icon-badge {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(255, 122, 41, 0.15);
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.stat-metric-number {
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.stat-metric-footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}
+
+/* ==================== ACTIVITY HEATMAP MATRIX (From Screenshot) ==================== */
+.activity-matrix-card {
+  margin-bottom: 18px;
+}
+
+.activity-matrix-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.matrix-hero-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.matrix-big-number {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.activity-heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.heatmap-col-header {
+  font-size: 11px;
+  text-align: center;
+  color: var(--text-muted);
+  font-weight: 600;
+  padding-bottom: 4px;
+}
+
+.heatmap-cell {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  background: #1f1b19;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: var(--transition-smooth);
+}
+
+.heatmap-cell.level-1 {
+  background: rgba(255, 122, 41, 0.25);
+  color: var(--accent-primary);
+  border-color: rgba(255, 122, 41, 0.3);
+}
+
+.heatmap-cell.level-2 {
+  background: rgba(255, 122, 41, 0.55);
+  color: #ffffff;
+  border-color: rgba(255, 122, 41, 0.6);
+}
+
+.heatmap-cell.level-3 {
+  background: var(--accent-gradient);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+/* ==================== WORKOUT HERO CARD ==================== */
+.today-workout-hero {
+  background: linear-gradient(145deg, #241e1b 0%, #151211 100%);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-xl);
+  padding: 22px;
+  margin-bottom: 18px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6), 0 0 24px var(--accent-glow-subtle);
+}
+
+.today-workout-hero::after {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(255, 122, 41, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.workout-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.workout-hero-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+}
+
+.workout-hero-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.workout-stats-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.workout-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.workout-stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.workout-stat-val {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ==================== CHIPS & FILTER PILLS ==================== */
+.chips-scroll-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  margin-bottom: 16px;
+  scrollbar-width: none;
+}
+
+.chips-scroll-row::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.chip:hover {
+  background: var(--bg-card-elevated);
+  color: var(--text-primary);
+}
+
+.chip.active {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 4px 14px var(--accent-glow);
+}
+
+/* ==================== EXERCISE & ROUTINE LIST CARDS ==================== */
+.exercise-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.exercise-card:hover {
+  background: var(--bg-card-elevated);
+  border-color: rgba(255, 122, 41, 0.25);
+  transform: translateX(2px);
+}
+
+.exercise-card-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.exercise-icon-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 122, 41, 0.12);
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.exercise-info h4 {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 3px;
+}
+
+.exercise-info p {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* ==================== ACTIVE WORKOUT SCREEN ==================== */
+.active-workout-header {
+  background: var(--bg-card-elevated);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  box-shadow: var(--glow-orange-sm);
+}
+
+.timer-display {
+  font-size: 26px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-primary);
+  letter-spacing: -0.5px;
+}
+
+.set-row {
+  display: grid;
+  grid-template-columns: 32px 1fr 1fr 40px;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(20, 18, 17, 0.6);
+  border-radius: var(--radius-sm);
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.set-row.completed {
+  background: rgba(52, 211, 153, 0.08);
+  border: 1px solid rgba(52, 211, 153, 0.2);
+}
+
+.set-check-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #25201e;
+  border: 1px solid var(--border-subtle);
+  color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.set-check-btn.checked {
+  background: var(--success);
+  border-color: var(--success);
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.4);
+}
+
+/* ==================== REST TIMER OVERLAY ==================== */
+.rest-timer-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(16px);
+  z-index: 12000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.rest-timer-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.rest-timer-card {
+  width: 100%;
+  max-width: 340px;
+  background: #1c1816;
+  border: 1.5px solid var(--border-accent);
+  border-radius: var(--radius-xl);
+  padding: 30px 24px;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), var(--glow-orange);
+  transform: scale(0.9);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.rest-timer-modal.show .rest-timer-card {
+  transform: scale(1);
+}
+
+.rest-countdown-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 4px solid var(--accent-primary);
+  box-shadow: inset 0 0 20px var(--accent-glow), 0 0 24px var(--accent-glow);
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  font-weight: 800;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==================== FITMATE AI CHAT ==================== */
+.ai-chat-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 160px);
+  position: relative;
+}
+
+.ai-messages-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  scrollbar-width: none;
+}
+
+.ai-messages-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.chat-bubble {
+  max-width: 85%;
+  padding: 12px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+  position: relative;
+  word-break: break-word;
+}
+
+.chat-bubble.user {
+  align-self: flex-end;
+  background: var(--accent-gradient);
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 4px 14px rgba(255, 122, 41, 0.3);
+}
+
+.chat-bubble.ai {
+  align-self: flex-start;
+  background: #201c1a;
+  border: 1px solid var(--border-card);
+  color: #ffffff;
+  border-bottom-left-radius: 4px;
+}
+
+.chat-bubble.ai .ai-badge-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--accent-primary);
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chat-attached-image-preview {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-top: 8px;
+  border: 1px solid var(--border-subtle);
+}
+
+.ai-typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 16px;
+  background: #201c1a;
+  border-radius: 20px;
+  width: fit-content;
+  border: 1px solid var(--border-card);
+}
+
+.ai-typing-indicator span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  animation: typingBounce 1.2s infinite ease-in-out;
+}
+
+.ai-typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-5px); opacity: 1; }
+}
+
+/* Chat Input Bar (Styled like the screenshot's 'Ask something to AI') */
+.chat-input-wrapper {
+  background: rgba(26, 23, 21, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(255, 122, 41, 0.35);
+  border-radius: 36px;
+  padding: 6px 8px 6px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), var(--glow-orange-sm);
+  margin-top: 10px;
+}
+
+.chat-input-wrapper input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 14.5px;
+  font-family: inherit;
+}
+
+.chat-input-wrapper input::placeholder {
+  color: var(--text-secondary);
+}
+
+.chat-action-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: var(--glow-orange);
+  transition: var(--transition-smooth);
+}
+
+.chat-action-btn:hover {
+  transform: scale(1.05);
+}
+
+/* ==================== AI MACHINE SCANNER ==================== */
+.camera-scanner-view {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: #000000;
+  border: 1px solid var(--border-accent);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 18px;
+}
+
+.camera-video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scanner-overlay-reticle {
+  position: absolute;
+  inset: 30px;
+  border: 2px dashed rgba(255, 122, 41, 0.6);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  pointer-events: none;
+  box-shadow: inset 0 0 20px rgba(255, 122, 41, 0.15);
+}
+
+.scanner-laser-line {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+  box-shadow: 0 0 10px var(--accent-primary);
+  animation: scanLaser 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes scanLaser {
+  from { transform: translateY(0); }
+  to { transform: translateY(280px); }
+}
+
+/* ==================== NUTRITION & CALORIE BARS ==================== */
+.nutrition-hero-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.macro-bars-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.macro-bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.macro-meta-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: #24201e;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+.progress-fill.protein { background: #38bdf8; }
+.progress-fill.carbs { background: var(--accent-primary); }
+.progress-fill.fat { background: #fbbf24; }
+.progress-fill.calories { background: var(--accent-gradient); box-shadow: var(--glow-orange); }
+
+/* ==================== WATER TRACKER ==================== */
+.water-glass-counter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  margin-bottom: 16px;
+}
+
+.water-amount-big {
+  font-size: 26px;
+  font-weight: 800;
+  color: #38bdf8;
+}
+
+/* ==================== MODALS & BOTTOM SHEETS ==================== */
+.fitmate-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(16px);
+  z-index: 11000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.fitmate-modal-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fitmate-bottom-sheet {
+  width: 100%;
+  max-width: 480px;
+  max-height: 88vh;
+  background: #181514;
+  border-top-left-radius: 32px;
+  border-top-right-radius: 32px;
+  border-top: 1.5px solid var(--border-accent);
+  padding: 24px 20px 36px 20px;
+  overflow-y: auto;
+  box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.8), var(--glow-orange-sm);
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fitmate-modal-backdrop.show .fitmate-bottom-sheet {
+  transform: translateY(0);
+}
+
+.sheet-handle-bar {
+  width: 44px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  margin: 0 auto 18px auto;
+}
+
+/* ==================== SPLASH SCREEN & ONBOARDING ==================== */
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 40%, #201a17 0%, #0c0b0b 90%);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.splash-screen.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.splash-logo-circle {
+  width: 96px;
+  height: 96px;
+  border-radius: 30px;
+  background: var(--accent-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 40px rgba(255, 122, 41, 0.5), 0 0 20px rgba(255, 122, 41, 0.3);
+  animation: pulseLogo 2s infinite alternate;
+}
+
+@keyframes pulseLogo {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.06); }
+}
+
+.splash-title {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #ffffff 60%, var(--accent-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.splash-tagline {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+/* Onboarding Wizard */
+.onboarding-screen {
+  position: fixed;
+  inset: 0;
+  background: #0e0d0c;
+  z-index: 50000;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 20px;
+  overflow-y: auto;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.onboarding-screen.hide {
+  display: none;
+}
+
+.onboarding-step-indicator {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.step-indicator-bar {
+  flex: 1;
+  height: 4px;
+  background: #25201e;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.step-indicator-bar.active {
+  background: var(--accent-gradient);
+  box-shadow: var(--glow-orange-sm);
+}
+
+.onboarding-step-view {
+  display: none;
+  animation: fadeIn 0.25s ease;
+}
+
+.onboarding-step-view.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.option-select-card {
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-card);
+  border-radius: var(--radius-md);
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: var(--transition-smooth);
+}
+
+.option-select-card:hover {
+  background: var(--bg-card-elevated);
+}
+
+.option-select-card.selected {
+  border-color: var(--accent-primary);
+  background: rgba(255, 122, 41, 0.12);
+  box-shadow: 0 0 16px var(--accent-glow-subtle);
+}
+
+
+/* ==================== WORKOUT CALENDAR ==================== */
+.calendar-day-cell {
+  aspect-ratio: 1;
+  background: rgba(22, 19, 17, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.calendar-day-cell:hover {
+  background: var(--bg-card-elevated);
+  border-color: rgba(255, 122, 41, 0.3);
+}
+
+.calendar-day-cell.empty {
+  background: transparent;
+  border-color: transparent;
+  cursor: default;
+}
+
+.calendar-day-cell.today {
+  border-color: var(--accent-primary);
+  background: rgba(255, 122, 41, 0.12);
+  box-shadow: 0 0 10px var(--accent-glow-subtle);
+}
+
+.calendar-day-cell .day-number {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.calendar-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin-top: 3px;
+}
+
+.calendar-dot.has-workout {
+  background: var(--accent-primary);
+  box-shadow: 0 0 6px var(--accent-primary);
+}
+
+.calendar-dot.has-scheduled {
+  background: #38bdf8;
+  box-shadow: 0 0 6px #38bdf8;
+}

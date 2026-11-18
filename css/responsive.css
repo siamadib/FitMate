@@ -1,0 +1,64 @@
+/**
+ * FitMate Responsive & Mobile-First Media Queries
+ * Handles safe-areas, tablet/desktop responsiveness, and device frame toggles.
+ */
+
+/* Safe area inset support for modern smartphones (iPhone notch / Android gesture bar) */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .device-notch-bar {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .dock-nav-container {
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Mobile-native direct viewport (when opened on an actual mobile device) */
+@media (max-width: 600px) {
+  .desktop-wrapper {
+    background: var(--bg-app);
+    padding: 0;
+  }
+
+  .mobile-device-frame {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .view-mode-toggle {
+    display: none !important; /* Hide preview toggle on real mobile screens */
+  }
+
+  .device-dynamic-pill {
+    display: none;
+  }
+}
+
+/* Tablet and landscape adjustments */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .mobile-device-frame {
+    max-height: 90vh;
+  }
+}
+
+/* Print or export mode clean */
+@media print {
+  .dock-nav-container,
+  .view-mode-toggle,
+  .icon-button {
+    display: none !important;
+  }
+}
+
+/* High contrast / reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
