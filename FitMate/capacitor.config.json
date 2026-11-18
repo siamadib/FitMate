@@ -1,0 +1,20 @@
+{
+  "appId": "com.fitmate.app",
+  "appName": "FitMate",
+  "webDir": ".",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1500,
+      "backgroundColor": "#0c0b0b",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#0c0b0b"
+    }
+  }
+}

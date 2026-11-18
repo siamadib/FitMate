@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>FitMate — Your Personal Fitness Companion</title>
+  
+  <!-- Favicon & Mobile Meta -->
+  <meta name="theme-color" content="#0c0b0b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Chart.js & Lucide Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Desktop Testing Frame Wrapper -->
+  <div class="desktop-wrapper">
+    
+    <!-- View Mode Switcher for Desktop / Tablet Viewers -->
+    <button id="toggle-view-mode" class="view-mode-toggle" title="Toggle Mobile Device Frame / Full View">
+      <i data-lucide="maximize"></i> Full View
+    </button>
+
+    <!-- Smartphone Device Container -->
+    <div class="mobile-device-frame">
+
+      <!-- Top Phone Status Bar (Dynamic Island style) -->
+      <div class="device-notch-bar">
+        <span class="time" id="device-status-time">9:41</span>
+        <div class="device-dynamic-pill">
+          <div style="width: 7px; height: 7px; border-radius: 50%; background: #ff7a29;"></div>
+          <span style="font-size: 10px; font-weight: 700; color: #ff7a29;">FitMate</span>
+        </div>
+        <div class="status-icons">
+          <i data-lucide="wifi" style="width: 14px; height: 14px;"></i>
+          <i data-lucide="battery" style="width: 16px; height: 16px;"></i>
+        </div>
+      </div>
+
+      <!-- App Screen Viewport -->
+      <main class="app-screen-container">
+
+        <!-- ==================== 1. HOME DASHBOARD ==================== -->
+        <section id="screen-home" class="screen-view active">
+          <!-- Top App Header -->
+          <header class="app-header">
+            <div class="user-profile-header" onclick="Navigation.navigateTo('screen-profile')">
+              <div class="avatar-circle" id="dash-avatar-circle">
+                <span class="avatar-initials" id="dash-avatar-initials">A</span>
+              </div>
+              <div class="header-meta">
+                <div class="user-name" id="dash-user-greeting">Good morning, Athlete</div>
+                <div class="user-sub" id="dash-user-sub">Muscle Gain • 74.5 kg</div>
+              </div>
+            </div>
+
+            <div class="header-actions">
+              <button class="header-pill-btn" onclick="Workout.openRoutineEditor()">
+                <i data-lucide="plus" style="width: 15px; height: 15px;"></i> New Routine
+              </button>
+            </div>
+          </header>
+
+          <!-- Today's Workout Hero Card -->
+          <div class="today-workout-hero">
+            <div class="workout-hero-top">
+              <span class="badge-pill badge-orange">Today's Focus</span>
+              <span class="badge-pill badge-green">+8.5% Intensity</span>
+            </div>
+            <h2 class="workout-hero-name" id="dash-hero-workout-title">Push Day (Hypertrophy)</h2>
+            <p class="workout-hero-desc" id="dash-hero-workout-desc">Chest, front delts, and tricep focus with compound lifts.</p>
+            
+            <div class="workout-stats-row">
+              <div class="workout-stat-item">
+                <span class="workout-stat-label">Exercises</span>
+                <span class="workout-stat-val" id="dash-hero-exercise-count">5 Exercises</span>
+              </div>
+              <div class="workout-stat-item">
+                <span class="workout-stat-label">Duration</span>
+                <span class="workout-stat-val" id="dash-hero-duration">~55 mins</span>
+              </div>
+              <div class="workout-stat-item">
+                <span class="workout-stat-label">Target</span>
+                <span class="workout-stat-val">Hypertrophy</span>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-block" id="dash-hero-start-btn">
+              <i data-lucide="play" style="fill: #ffffff;"></i> Start Workout Now
+            </button>
+          </div>
+
+          <!-- 2x2 Metric Grid (Styled as in reference photo) -->
+          <div class="stats-2x2-grid">
+            <!-- Metric 1: Calories Burned -->
+            <div class="stat-metric-card" onclick="Navigation.navigateTo('screen-nutrition')">
+              <div class="stat-metric-header">
+                <span>Burned Today</span>
+                <div class="stat-arrow-icon"><i data-lucide="arrow-up-right"></i></div>
+              </div>
+              <div class="stat-metric-value-row">
+                <div class="stat-icon-badge"><i data-lucide="flame"></i></div>
+                <div class="stat-metric-number" id="dash-stat-calories">420 kcal</div>
+              </div>
+              <div class="stat-metric-footer">
+                <span class="badge-pill badge-green">+4% vs target</span>
+              </div>
+            </div>
+
+            <!-- Metric 2: Daily Steps -->
+            <div class="stat-metric-card" id="dash-quick-steps-btn">
+              <div class="stat-metric-header">
+                <span>Daily Steps</span>
+                <div class="stat-arrow-icon"><i data-lucide="arrow-up-right"></i></div>
+              </div>
+              <div class="stat-metric-value-row">
+                <div class="stat-icon-badge"><i data-lucide="footprints"></i></div>
+                <div class="stat-metric-number" id="dash-stat-steps">7,420</div>
+              </div>
+              <div class="stat-metric-footer">
+                <span class="badge-pill badge-green">Goal: 10,000</span>
+              </div>
+            </div>
+
+            <!-- Metric 3: Water Intake -->
+            <div class="stat-metric-card" id="dash-quick-water-btn">
+              <div class="stat-metric-header">
+                <span>Water Intake</span>
+                <div class="stat-arrow-icon"><i data-lucide="plus"></i></div>
+              </div>
+              <div class="stat-metric-value-row">
+                <div class="stat-icon-badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">
+                  <i data-lucide="droplet"></i>
+                </div>
+                <div class="stat-metric-number" id="dash-stat-water">1,750 ml</div>
+              </div>
+              <div class="stat-metric-footer">
+                <span class="badge-pill badge-muted">Tap to +250ml</span>
+              </div>
+            </div>
+
+            <!-- Metric 4: Weight Check-in -->
+            <div class="stat-metric-card" onclick="Navigation.navigateTo('screen-progress')">
+              <div class="stat-metric-header">
+                <span>Current Weight</span>
+                <div class="stat-arrow-icon"><i data-lucide="arrow-up-right"></i></div>
+              </div>
+              <div class="stat-metric-value-row">
+                <div class="stat-icon-badge"><i data-lucide="scale"></i></div>
+                <div class="stat-metric-number" id="dash-current-weight">74.5 kg</div>
+              </div>
+              <div class="stat-metric-footer">
+                <span class="badge-pill badge-orange">Target: <span id="dash-target-weight">70.0 kg</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity Heatmap Matrix (From Screenshot) -->
+          <div class="card activity-matrix-card">
+            <div class="activity-matrix-header">
+              <div class="card-title-group">
+                <span class="card-subtitle">Consistency Tracking</span>
+                <div class="matrix-hero-stat">
+                  <span class="matrix-big-number">+720</span>
+                  <span class="badge-pill badge-green">+8.5% Growth</span>
+                </div>
+              </div>
+              <button class="icon-button" onclick="Navigation.navigateTo('screen-calendar')">
+                <i data-lucide="calendar"></i>
+              </button>
+            </div>
+            
+            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 6px;">
+              28-Day Workout & Training Intensity Matrix
+            </p>
+
+            <div class="activity-heatmap-grid" id="dash-heatmap-matrix">
+              <!-- Dynamically populated 28 cells with glowing intensities -->
+            </div>
+          </div>
+
+          <!-- Quick Access Cards: AI Machine Scanner & Nutrition -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px;">
+            <div class="card" style="cursor: pointer; padding: 14px;" onclick="AIChat.openCameraModal()">
+              <div style="font-size: 24px; margin-bottom: 8px;">📷</div>
+              <div style="font-size: 14px; font-weight: 700; color: #ffffff;">Scan Machine</div>
+              <div style="font-size: 11px; color: var(--text-secondary); margin-top: 2px;">AI Equipment ID</div>
+            </div>
+
+            <div class="card" style="cursor: pointer; padding: 14px;" onclick="Navigation.navigateTo('screen-nutrition')">
+              <div style="font-size: 24px; margin-bottom: 8px;">🥗</div>
+              <div style="font-size: 14px; font-weight: 700; color: #ffffff;">Log Meals</div>
+              <div style="font-size: 11px; color: var(--text-secondary); margin-top: 2px;">Bangladeshi & Fitness</div>
+            </div>
+          </div>
+
+          <!-- Recent Workout History -->
+          <div class="card" style="margin-bottom: 18px;">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-subtitle">Performance Log</span>
+                <h3 class="card-title">Recent Workouts</h3>
+              </div>
+              <button class="btn btn-ghost btn-sm" onclick="Navigation.navigateTo('screen-progress')">View All</button>
+            </div>
+            <div id="dash-recent-workouts-list">
+              <!-- Populated by dashboard.js -->
+            </div>
+          </div>
+
+          <!-- Daily Motivational Quote -->
+          <div class="card" style="margin-bottom: 18px; background: rgba(255, 122, 41, 0.06); border-color: rgba(255, 122, 41, 0.2);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent-primary);">
+                💡 Daily Mindset
+              </span>
+              <button class="icon-button" id="dash-refresh-quote-btn" style="width: 28px; height: 28px;" title="New Quote">
+                <i data-lucide="refresh-cw" style="width: 14px; height: 14px;"></i>
+              </button>
+            </div>
+            <p id="dash-motivational-quote" style="font-size: 13.5px; font-style: italic; color: #ffffff; line-height: 1.5;">
+              "The only bad workout is the one that didn't happen."
+            </p>
+          </div>
+
+          <!-- Extra Quick Links Row -->
+          <div style="display: flex; gap: 8px; margin-bottom: 24px;">
+            <button class="btn btn-secondary btn-sm btn-block" onclick="Navigation.navigateTo('screen-calculators')">
+              <i data-lucide="calculator"></i> Calculators
+            </button>
+            <button class="btn btn-secondary btn-sm btn-block" onclick="Navigation.navigateTo('screen-exercises')">
+              <i data-lucide="book-open"></i> Exercises
+            </button>
+          </div>
+        </section>
+
+        <!-- ==================== 2. WORKOUT OVERVIEW & ROUTINE MANAGEMENT ==================== -->
+        <section id="screen-workout" class="screen-view">
+          <div class="app-header">
+            <div>
+              <span class="card-subtitle">Training Hub</span>
+              <h2 style="font-size: 22px; font-weight: 800;">Workout Routines</h2>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="Workout.openRoutineEditor()">
+              <i data-lucide="plus"></i> Create Routine
+            </button>
+          </div>
+
+          <!-- Category Splits Navigation -->
+          <div class="chips-scroll-row">
+            <button class="chip active">All Splits</button>
+            <button class="chip" onclick="Navigation.navigateTo('screen-exercises')">Exercise Library</button>
+            <button class="chip" onclick="Navigation.navigateTo('screen-calendar')">Schedule Calendar</button>
+          </div>
+
+          <!-- Routines List Container -->
+          <div id="workout-routines-container">
+            <!-- Populated by workout.js -->
+          </div>
+        </section>
+
+        <!-- ==================== 3. PERSONAL ROUTINE BUILDER ==================== -->
+        <section id="screen-routine-builder" class="screen-view">
+          <div class="app-header">
+            <button class="icon-button" onclick="Navigation.goBack()">
+              <i data-lucide="arrow-left"></i>
+            </button>
+            <h3 style="font-size: 18px; font-weight: 700;">Routine Builder</h3>
+            <button class="btn btn-primary btn-sm" onclick="Workout.saveRoutineFromBuilder()">
+              <i data-lucide="save"></i> Save
+            </button>
+          </div>
+
+          <div class="card" style="margin-bottom: 16px;">
+            <div class="form-group">
+              <label class="form-label">Routine Name</label>
+              <input type="text" id="builder-routine-name" class="form-control" placeholder="e.g. Upper Body Power Blast">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Workout Split</label>
+              <select id="builder-routine-split" class="form-control">
+                <option value="Push / Pull / Legs">Push / Pull / Legs</option>
+                <option value="Upper / Lower">Upper / Lower</option>
+                <option value="Bro Split">Bro Split</option>
+                <option value="Full Body">Full Body</option>
+                <option value="Custom Split">Custom Split</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Target Training Days</label>
+              <div id="builder-days-container" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+                <!-- Days checkboxes -->
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Notes or Focus</label>
+              <input type="text" id="builder-routine-desc" class="form-control" placeholder="e.g. Heavy compounds followed by arm burnout">
+            </div>
+          </div>
+
+          <!-- Added Exercises Header -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h4 style="font-size: 15px; font-weight: 700; color: #ffffff;">Exercises in Routine</h4>
+            <button class="btn btn-secondary btn-sm" onclick="Workout.openAddExerciseModal()">
+              <i data-lucide="plus"></i> Add Exercise
+            </button>
+          </div>
+
+          <!-- Exercises List in Builder -->
+          <div id="builder-exercises-list">
+            <!-- Populated by workout.js -->
+          </div>
+        </section>
+
+        <!-- ==================== 4. ACTIVE WORKOUT TRACKER ==================== -->
+        <section id="screen-active-workout" class="screen-view">
+          <div class="active-workout-header">
+            <div>
+              <span class="card-subtitle" style="color: var(--accent-primary);">● Live Workout Session</span>
+              <h3 id="active-workout-routine-title" style="font-size: 18px; font-weight: 800; color: #ffffff;">Push Day</h3>
+            </div>
+            <div class="timer-display" id="active-workout-timer-display">00:00</div>
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-bottom: 16px;">
+            <button class="btn btn-secondary btn-sm" id="active-timer-pause-btn" style="flex: 1;">
+              <i data-lucide="pause"></i> Pause
+            </button>
+            <button class="btn btn-primary btn-sm" id="active-finish-workout-btn" style="flex: 2;">
+              <i data-lucide="flag"></i> Finish Workout
+            </button>
+            <button class="btn btn-ghost btn-sm" id="active-cancel-workout-btn">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+
+          <!-- Exercises checklist container -->
+          <div id="active-exercises-container">
+            <!-- Populated by workout.js -->
+          </div>
+        </section>
+
+        <!-- ==================== 5. EXERCISE LIBRARY ==================== -->
+        <section id="screen-exercises" class="screen-view">
+          <div class="app-header">
+            <button class="icon-button" onclick="Navigation.goBack()">
+              <i data-lucide="arrow-left"></i>
+            </button>
+            <h3 style="font-size: 18px; font-weight: 700;">Exercise Library</h3>
+            <button class="icon-button" onclick="AIChat.openCameraModal()">
+              <i data-lucide="camera"></i>
+            </button>
+          </div>
+
+          <!-- Search Input -->
+          <div class="form-group" style="margin-bottom: 14px;">
+            <input type="text" id="exercise-search-input" class="form-control" placeholder="Search exercises, muscles, equipment...">
+          </div>
+
+          <!-- Category Chips -->
+          <div class="chips-scroll-row" id="exercise-category-chips">
+            <!-- Populated by exercise.js -->
+          </div>
+
+          <!-- Exercises List -->
+          <div id="exercise-library-list">
+            <!-- Populated by exercise.js -->
+          </div>
+        </section>
+
+        <!-- ==================== 6. FITMATE AI CHATBOT ==================== -->
+        <section id="screen-ai-chat" class="screen-view">
+          <div class="app-header" style="margin-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div class="avatar-circle" style="background: var(--accent-gradient);">
+                <i data-lucide="sparkles" style="color: #ffffff; width: 22px; height: 22px;"></i>
+              </div>
+              <div>
+                <h3 style="font-size: 17px; font-weight: 800; color: #ffffff;">FitMate AI</h3>
+                <span style="font-size: 11.5px; color: var(--success); font-weight: 600;">● Online Fitness Coach</span>
+              </div>
+            </div>
+
+            <button class="icon-button" id="ai-chat-clear-history-btn" title="Clear Chat">
+              <i data-lucide="trash-2"></i>
+            </button>
+          </div>
+
+          <!-- Quick Action Prompt Chips (Styled as in reference screenshot) -->
+          <div class="chips-scroll-row" style="margin-bottom: 10px;">
+            <button class="chip ai-quick-chip" data-action="scan-machine">📷 Identify Gym Machine</button>
+            <button class="chip ai-quick-chip" data-prompt="Generate a 4-day muscle hypertrophy workout routine for me">⚡ Generate Workout</button>
+            <button class="chip ai-quick-chip" data-prompt="Analyze the calories and macros of 1 cup steamed rice and chicken curry">🥗 Analyze Bangladeshi Food</button>
+            <button class="chip ai-quick-chip" data-prompt="What are good alternative exercises for Barbell Squats?">🔄 Find Exercise Alternatives</button>
+            <button class="chip ai-quick-chip" data-prompt="How do I ensure proper progressive overload without getting injured?">💬 Progressive Overload Tips</button>
+          </div>
+
+          <!-- Chat Scroll Container -->
+          <div class="ai-chat-container">
+            <div class="ai-messages-scroll" id="ai-chat-messages-scroll">
+              <!-- AI Chat bubbles populated by ai-chat.js -->
+            </div>
+
+            <!-- Attached Image Previews Row -->
+            <div id="ai-chat-attachments-preview-row" style="display: none; gap: 8px; padding: 6px 4px; overflow-x: auto;"></div>
+
+            <!-- Chat Input Bar (Styled like the reference's 'Ask something to AI') -->
+            <div class="chat-input-wrapper">
+              <label for="ai-chat-gallery-input" class="icon-button" style="width: 32px; height: 32px; flex-shrink: 0;" title="Attach photo">
+                <i data-lucide="image" style="width: 17px; height: 17px;"></i>
+              </label>
+              <input type="file" id="ai-chat-gallery-input" accept="image/*" multiple style="display: none;">
+
+              <button class="icon-button" id="ai-chat-camera-trigger" style="width: 32px; height: 32px; flex-shrink: 0;" title="Take photo">
+                <i data-lucide="camera" style="width: 17px; height: 17px;"></i>
+              </button>
+
+              <input type="text" id="ai-chat-input-text" placeholder="Ask FitMate AI anything...">
+
+              <button class="chat-action-btn" id="ai-chat-send-btn" title="Send message">
+                <i data-lucide="arrow-up" style="width: 20px; height: 20px; stroke-width: 2.5;"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== 7. NUTRITION & DIET TRACKER ==================== -->
+        <section id="screen-nutrition" class="screen-view">
+          <div class="app-header">
+            <div>
+              <span class="card-subtitle">Nutrition Tracker</span>
+              <h2 style="font-size: 22px; font-weight: 800;">Daily Fuel & Macros</h2>
+            </div>
+            <button class="icon-button" onclick="AIChat.sendUserMessage('Analyze my daily diet and give macronutrient advice')">
+              <i data-lucide="sparkles"></i>
+            </button>
+          </div>
+
+          <!-- Calorie Hero Card -->
+          <div class="card card-glow" style="margin-bottom: 18px;">
+            <div class="nutrition-hero-card">
+              <div>
+                <span class="card-subtitle">Calories Today</span>
+                <div style="font-size: 32px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px;">
+                  <span id="nutri-total-calories">1,055</span>
+                  <span style="font-size: 16px; color: var(--text-muted); font-weight: 600;">/ <span id="nutri-target-calories">2,400</span> kcal</span>
+                </div>
+                <div style="font-size: 12.5px; color: var(--text-accent); font-weight: 600; margin-top: 4px;" id="nutri-calories-left">
+                  1,345 kcal remaining
+                </div>
+              </div>
+
+              <div class="macro-bars-container">
+                <!-- Protein -->
+                <div class="macro-bar-item">
+                  <div class="macro-meta-row">
+                    <span style="color: #38bdf8;">Protein</span>
+                    <span id="nutri-protein-current">76g</span>
+                  </div>
+                  <div class="progress-track"><div class="progress-fill protein" id="nutri-protein-fill" style="width: 51%;"></div></div>
+                </div>
+
+                <!-- Carbs -->
+                <div class="macro-bar-item">
+                  <div class="macro-meta-row">
+                    <span style="color: var(--accent-primary);">Carbs</span>
+                    <span id="nutri-carbs-current">132g</span>
+                  </div>
+                  <div class="progress-track"><div class="progress-fill carbs" id="nutri-carbs-fill" style="width: 48%;"></div></div>
+                </div>
+
+                <!-- Fat -->
+                <div class="macro-bar-item">
+                  <div class="macro-meta-row">
+                    <span style="color: #fbbf24;">Fat</span>
+                    <span id="nutri-fat-current">34g</span>
+                  </div>
+                  <div class="progress-track"><div class="progress-fill fat" id="nutri-fat-fill" style="width: 52%;"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Water Intake Section -->
+          <div class="water-glass-counter">
+            <div>
+              <span class="card-subtitle">Hydration Tracker</span>
+              <div class="water-amount-big" id="water-current-amount">1,750 ml</div>
+              <div style="font-size: 11.5px; color: var(--text-secondary);" id="water-target-amount">Goal: 3,000 ml</div>
+            </div>
+
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-secondary btn-sm" id="water-add-250-btn">+250ml</button>
+              <button class="btn btn-primary btn-sm" id="water-add-500-btn">+500ml</button>
+              <button class="icon-button" id="water-reset-btn" title="Reset water">
+                <i data-lucide="rotate-ccw"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Meal Categories: Breakfast, Lunch, Dinner, Snack -->
+          <div class="card" style="margin-bottom: 14px;">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-subtitle">Morning Fuel</span>
+                <h4 class="card-title">Breakfast</h4>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="badge-pill badge-orange" id="meal-breakfast-cal-total">355 kcal</span>
+                <button class="btn btn-sm btn-secondary" onclick="Nutrition.openFoodPicker('breakfast')">
+                  <i data-lucide="plus"></i> Add
+                </button>
+              </div>
+            </div>
+            <div id="meal-breakfast-items-list"></div>
+          </div>
+
+          <div class="card" style="margin-bottom: 14px;">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-subtitle">Midday Power</span>
+                <h4 class="card-title">Lunch</h4>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="badge-pill badge-orange" id="meal-lunch-cal-total">680 kcal</span>
+                <button class="btn btn-sm btn-secondary" onclick="Nutrition.openFoodPicker('lunch')">
+                  <i data-lucide="plus"></i> Add
+                </button>
+              </div>
+            </div>
+            <div id="meal-lunch-items-list"></div>
+          </div>
+
+          <div class="card" style="margin-bottom: 14px;">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-subtitle">Evening Recovery</span>
+                <h4 class="card-title">Dinner</h4>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="badge-pill badge-orange" id="meal-dinner-cal-total">0 kcal</span>
+                <button class="btn btn-sm btn-secondary" onclick="Nutrition.openFoodPicker('dinner')">
+                  <i data-lucide="plus"></i> Add
+                </button>
+              </div>
+            </div>
+            <div id="meal-dinner-items-list"></div>
+          </div>
+
+          <div class="card" style="margin-bottom: 18px;">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-subtitle">Snacks & Shakes</span>
+                <h4 class="card-title">Snacks</h4>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="badge-pill badge-orange" id="meal-snack-cal-total">120 kcal</span>
+                <button class="btn btn-sm btn-secondary" onclick="Nutrition.openFoodPicker('snack')">
+                  <i data-lucide="plus"></i> Add
+                </button>
+              </div>
+            </div>
+            <div id="meal-snack-items-list"></div>
+          </div>
+        </section>
+
+        <!-- ==================== 8. PROGRESS DASHBOARD & ANALYTICS ==================== -->
+        <section id="screen-progress" class="screen-view">
+          <div class="app-header">
+            <div>
+              <span class="card-subtitle">Body & Lifting Trends</span>
+              <h2 style="font-size: 22px; font-weight: 800;">Progress Analytics</h2>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="Progress.openLogWeightModal()">
+              <i data-lucide="scale"></i> Log Weight
+            </button>
+          </div>
+
+          <!-- Weight Summary Header -->
+          <div class="card card-glow" style="margin-bottom: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <div>
+                <span class="card-subtitle">Current vs Target</span>
+                <div style="font-size: 28px; font-weight: 800; color: #ffffff;">
+                  <span id="progress-current-weight-val">74.5 kg</span>
+                  <span style="font-size: 15px; color: var(--text-muted); font-weight: 600;">/ <span id="progress-target-weight-val">70.0 kg</span></span>
+                </div>
+              </div>
+              <span class="badge-pill badge-green" id="progress-weight-delta-badge">-2.3 kg</span>
+            </div>
+
+            <!-- Weight Progress Chart.js Canvas -->
+            <div style="height: 180px; width: 100%; position: relative;">
+              <canvas id="progress-weight-chart-canvas"></canvas>
+            </div>
+          </div>
+
+          <!-- Workout Volume Chart (Tons lifted) -->
+          <div class="card" style="margin-bottom: 18px;">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-subtitle">Weekly Tonnage</span>
+                <h3 class="card-title">Workout Volume (Tons)</h3>
+              </div>
+              <span class="badge-pill badge-orange">Overload</span>
+            </div>
+            <div style="height: 160px; width: 100%; position: relative;">
+              <canvas id="progress-volume-chart-canvas"></canvas>
+            </div>
+          </div>
+
+          <!-- Body Measurements Shelf -->
+          <div class="card" style="margin-bottom: 18px;">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-subtitle">Tape Measurements</span>
+                <h3 class="card-title">Body Measurements</h3>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="Progress.openMeasurementsModal()">
+                <i data-lucide="edit-2"></i> Update
+              </button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center;">
+              <div style="background: rgba(20,18,17,0.7); padding: 10px 4px; border-radius: 12px; border: 1px solid var(--border-subtle);">
+                <div style="font-size: 10.5px; color: var(--text-muted); font-weight: 700;">WAIST</div>
+                <div style="font-size: 15px; font-weight: 800; color: #ffffff; margin-top: 2px;" id="measure-waist-val">81.5 cm</div>
+              </div>
+              <div style="background: rgba(20,18,17,0.7); padding: 10px 4px; border-radius: 12px; border: 1px solid var(--border-subtle);">
+                <div style="font-size: 10.5px; color: var(--text-muted); font-weight: 700;">CHEST</div>
+                <div style="font-size: 15px; font-weight: 800; color: #ffffff; margin-top: 2px;" id="measure-chest-val">104 cm</div>
+              </div>
+              <div style="background: rgba(20,18,17,0.7); padding: 10px 4px; border-radius: 12px; border: 1px solid var(--border-subtle);">
+                <div style="font-size: 10.5px; color: var(--text-muted); font-weight: 700;">ARMS</div>
+                <div style="font-size: 15px; font-weight: 800; color: #ffffff; margin-top: 2px;" id="measure-arms-val">37.5 cm</div>
+              </div>
+              <div style="background: rgba(20,18,17,0.7); padding: 10px 4px; border-radius: 12px; border: 1px solid var(--border-subtle);">
+                <div style="font-size: 10.5px; color: var(--text-muted); font-weight: 700;">THIGHS</div>
+                <div style="font-size: 15px; font-weight: 800; color: #ffffff; margin-top: 2px;" id="measure-thighs-val">58 cm</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Personal Records (PRs) Shelf -->
+          <div class="card" style="margin-bottom: 18px;">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-subtitle">Strength Milestones</span>
+                <h3 class="card-title">Personal Records</h3>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="Progress.openAddPRModal()">
+                <i data-lucide="plus"></i> Add PR
+              </button>
+            </div>
+            <div id="progress-prs-container"></div>
+          </div>
+
+          <!-- Achievement Badges -->
+          <div class="card" style="margin-bottom: 18px;">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-subtitle">Earned Medals</span>
+                <h3 class="card-title">Achievements</h3>
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;" id="progress-badges-grid"></div>
+          </div>
+
+          <!-- Before & After Photo Gallery -->
+          <div class="card" style="margin-bottom: 24px;">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="card-subtitle">Visual Transformation</span>
+                <h3 class="card-title">Photo Gallery</h3>
+              </div>
+              <label for="progress-photo-gallery-input" class="btn btn-secondary btn-sm" style="cursor: pointer;">
+                <i data-lucide="upload"></i> Upload
+              </label>
+              <input type="file" id="progress-photo-gallery-input" accept="image/*" style="display: none;">
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;" id="progress-photos-container"></div>
+          </div>
+        </section>
+
+        <!-- ==================== 9. FITNESS CALCULATORS ==================== -->
+        <section id="screen-calculators" class="screen-view">
+          <div class="app-header">
+            <button class="icon-button" onclick="Navigation.goBack()">
+              <i data-lucide="arrow-left"></i>
+            </button>
+            <h3 style="font-size: 18px; font-weight: 700;">Fitness Calculators</h3>
+            <div style="width: 40px;"></div>
+          </div>
+
+          <!-- Calculator Tabs -->
+          <div class="chips-scroll-row">
+            <button class="chip calc-tab-btn active" data-tab="bmi">BMI</button>
+            <button class="chip calc-tab-btn" data-tab="tdee">BMR & TDEE</button>
+            <button class="chip calc-tab-btn" data-tab="macros">Macronutrients</button>
+          </div>
+
+          <!-- TAB 1: BMI -->
+          <div id="calc-view-bmi" class="calc-tab-content">
+            <div class="card card-glow" style="margin-bottom: 16px; text-align: center; padding: 24px;">
+              <span class="card-subtitle">Calculated BMI</span>
+              <div style="font-size: 42px; font-weight: 800; color: #ffffff; margin: 4px 0;" id="calc-bmi-result-val">24.3</div>
+              <div><span class="badge-pill badge-green" id="calc-bmi-result-cat">Normal weight</span></div>
+            </div>
+
+            <div class="card" style="margin-bottom: 16px;">
+              <div class="form-group">
+                <label class="form-label">Current Weight (kg)</label>
+                <input type="number" id="calc-bmi-weight" class="form-control" value="74.5">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Height (cm)</label>
+                <input type="number" id="calc-bmi-height" class="form-control" value="175">
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: TDEE & Calories -->
+          <div id="calc-view-tdee" class="calc-tab-content" style="display: none;">
+            <div class="card card-glow" style="margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                <div>
+                  <span class="card-subtitle">Basal Metabolic Rate</span>
+                  <div style="font-size: 20px; font-weight: 800; color: #ffffff;" id="calc-bmr-result-val">1,720 kcal</div>
+                </div>
+                <div>
+                  <span class="card-subtitle">Daily Expenditure (TDEE)</span>
+                  <div style="font-size: 20px; font-weight: 800; color: #ffffff;" id="calc-tdee-result-val">2,666 kcal</div>
+                </div>
+              </div>
+
+              <div style="background: rgba(255, 122, 41, 0.1); border: 1px solid rgba(255, 122, 41, 0.25); border-radius: 12px; padding: 14px; text-align: center;">
+                <span style="font-size: 11.5px; font-weight: 700; color: var(--accent-primary); text-transform: uppercase;">
+                  Recommended Calorie Target for Goal
+                </span>
+                <div style="font-size: 30px; font-weight: 800; color: #ffffff; margin-top: 2px;" id="calc-target-calories-val">
+                  3,066 kcal
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="margin-bottom: 16px;">
+              <div class="form-group">
+                <label class="form-label">Activity Level</label>
+                <select id="calc-tdee-activity" class="form-control">
+                  <option value="1.2">Sedentary (Desk job, little exercise)</option>
+                  <option value="1.375">Lightly Active (1-3 days gym)</option>
+                  <option value="1.55" selected>Moderately Active (3-5 days gym)</option>
+                  <option value="1.725">Very Active (6-7 days heavy training)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Fitness Goal</label>
+                <select id="calc-tdee-goal" class="form-control">
+                  <option value="loss">Weight Loss (500 kcal Deficit)</option>
+                  <option value="maintain">Maintenance (Maintain Weight)</option>
+                  <option value="gain" selected>Muscle Gain (400 kcal Surplus)</option>
+                </select>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="form-group">
+                  <label class="form-label">Age</label>
+                  <input type="number" id="calc-tdee-age" class="form-control" value="26">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Gender</label>
+                  <select id="calc-tdee-gender" class="form-control">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="form-group">
+                  <label class="form-label">Weight (kg)</label>
+                  <input type="number" id="calc-tdee-weight" class="form-control" value="74.5">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Height (cm)</label>
+                  <input type="number" id="calc-tdee-height" class="form-control" value="175">
+                </div>
+              </div>
+
+              <button class="btn btn-primary btn-block" id="calc-apply-to-profile-btn" style="margin-top: 10px;">
+                <i data-lucide="check"></i> Apply Targets to My Profile
+              </button>
+            </div>
+          </div>
+
+          <!-- TAB 3: Macros -->
+          <div id="calc-view-macros" class="calc-tab-content" style="display: none;">
+            <div class="card card-glow" style="margin-bottom: 16px;">
+              <h4 style="font-size: 16px; font-weight: 700; color: #ffffff; margin-bottom: 12px;">Estimated Macronutrient Split</h4>
+              
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); padding: 12px 6px; border-radius: 12px;">
+                  <div style="font-size: 11px; color: #38bdf8; font-weight: 700;">PROTEIN</div>
+                  <div style="font-size: 18px; font-weight: 800; color: #ffffff; margin-top: 2px;" id="calc-macro-protein-val">149g</div>
+                </div>
+                <div style="background: rgba(255, 122, 41, 0.1); border: 1px solid rgba(255, 122, 41, 0.25); padding: 12px 6px; border-radius: 12px;">
+                  <div style="font-size: 11px; color: var(--accent-primary); font-weight: 700;">CARBS</div>
+                  <div style="font-size: 18px; font-weight: 800; color: #ffffff; margin-top: 2px;" id="calc-macro-carbs-val">340g</div>
+                </div>
+                <div style="background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.25); padding: 12px 6px; border-radius: 12px;">
+                  <div style="font-size: 11px; color: #fbbf24; font-weight: 700;">FAT</div>
+                  <div style="font-size: 18px; font-weight: 800; color: #ffffff; margin-top: 2px;" id="calc-macro-fat-val">68g</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="font-size: 11.5px; color: var(--text-muted); text-align: center; padding: 12px 16px;">
+            ⚠️ Disclaimer: Fitness calculators provide science-backed mathematical estimates. Consult a certified medical professional or dietitian for personalized clinical prescriptions.
+          </div>
+        </section>
+
+        <!-- ==================== 10. WORKOUT CALENDAR ==================== -->
+        <section id="screen-calendar" class="screen-view">
+          <div class="app-header">
+            <button class="icon-button" onclick="Navigation.goBack()">
+              <i data-lucide="arrow-left"></i>
+            </button>
+            <h3 style="font-size: 18px; font-weight: 700;">Workout Calendar</h3>
+            <div style="width: 40px;"></div>
+          </div>
+
+          <!-- Streak Ribbon -->
+          <div class="card card-glow" style="margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; padding: 16px;">
+            <div>
+              <span class="card-subtitle">Active Streak</span>
+              <div style="font-size: 24px; font-weight: 800; color: var(--accent-primary);" id="calendar-current-streak-count">4 Days</div>
+            </div>
+            <div style="font-size: 36px;">🔥</div>
+          </div>
+
+          <!-- Monthly Calendar Navigation -->
+          <div class="card" style="margin-bottom: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <button class="icon-button" id="calendar-prev-month-btn">
+                <i data-lucide="chevron-left"></i>
+              </button>
+              <h4 id="calendar-month-year-title" style="font-size: 16px; font-weight: 700; color: #ffffff;">November 2026</h4>
+              <button class="icon-button" id="calendar-next-month-btn">
+                <i data-lucide="chevron-right"></i>
+              </button>
+            </div>
+
+            <!-- Calendar Days Grid -->
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; margin-bottom: 8px;">
+              <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;">S</span>
+              <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;">M</span>
+              <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;">T</span>
+              <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;">W</span>
+              <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;">T</span>
+              <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;">F</span>
+              <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;">S</span>
+            </div>
+
+            <div id="calendar-days-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;"></div>
+
+            <!-- Legend -->
+            <div style="display: flex; justify-content: center; gap: 14px; margin-top: 14px; font-size: 11px; color: var(--text-secondary);">
+              <span style="display: flex; align-items: center; gap: 4px;">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent-primary);"></span> Workout Done
+              </span>
+              <span style="display: flex; align-items: center; gap: 4px;">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: #38bdf8;"></span> Scheduled
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== 11. USER PROFILE & SETTINGS ==================== -->
+        <section id="screen-profile" class="screen-view">
+          <div class="app-header">
+            <div>
+              <span class="card-subtitle">Athlete Account</span>
+              <h2 style="font-size: 22px; font-weight: 800;">Profile & Settings</h2>
+            </div>
+          </div>
+
+          <!-- Profile Display Header with Photo Upload -->
+          <div class="card card-glow" style="margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div style="position: relative;">
+                <div class="avatar-circle" id="profile-display-avatar-circle" style="width: 64px; height: 64px;">
+                  <span class="avatar-initials" id="profile-display-initials" style="font-size: 22px;">A</span>
+                </div>
+                <label for="profile-avatar-file-input" title="Upload profile picture" style="position: absolute; bottom: -2px; right: -2px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-gradient); color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid #141211; box-shadow: 0 2px 8px rgba(0,0,0,0.5);">
+                  <i data-lucide="camera" style="width: 12px; height: 12px;"></i>
+                </label>
+                <input type="file" id="profile-avatar-file-input" accept="image/*" style="display: none;">
+              </div>
+              <div>
+                <h3 style="font-size: 18px; font-weight: 800; color: #ffffff;" id="profile-display-name">Athlete</h3>
+                <p style="font-size: 12.5px; color: var(--text-secondary);" id="profile-display-sub">Muscle Gain • Intermediate</p>
+                <div style="display: flex; gap: 8px; margin-top: 4px;">
+                  <label for="profile-avatar-file-input" style="font-size: 11px; color: var(--accent-primary); font-weight: 700; cursor: pointer;">
+                    📷 Upload Photo
+                  </label>
+                  <span id="profile-remove-avatar-btn" style="font-size: 11px; color: var(--text-muted); cursor: pointer; display: none;" onclick="Profile.removeAvatar()">
+                    • Remove
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 Quick Stats -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 18px;">
+            <div class="card" style="padding: 10px 4px; text-align: center;">
+              <div style="font-size: 10px; color: var(--text-muted); font-weight: 700;">CURRENT</div>
+              <div style="font-size: 14px; font-weight: 800; color: #ffffff;" id="profile-stat-weight">74.5 kg</div>
+            </div>
+            <div class="card" style="padding: 10px 4px; text-align: center;">
+              <div style="font-size: 10px; color: var(--text-muted); font-weight: 700;">TARGET</div>
+              <div style="font-size: 14px; font-weight: 800; color: var(--accent-primary);" id="profile-stat-target">70.0 kg</div>
+            </div>
+            <div class="card" style="padding: 10px 4px; text-align: center;">
+              <div style="font-size: 10px; color: var(--text-muted); font-weight: 700;">HEIGHT</div>
+              <div style="font-size: 14px; font-weight: 800; color: #ffffff;" id="profile-stat-height">175 cm</div>
+            </div>
+            <div class="card" style="padding: 10px 4px; text-align: center;">
+              <div style="font-size: 10px; color: var(--text-muted); font-weight: 700;">GOAL</div>
+              <div style="font-size: 12px; font-weight: 800; color: var(--success); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="profile-stat-goal">Muscle</div>
+            </div>
+          </div>
+
+          <!-- Edit Profile Details Form -->
+          <div class="card" style="margin-bottom: 18px;">
+            <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin-bottom: 14px;">Edit Profile Information</h4>
+
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" id="edit-profile-name" class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" id="edit-profile-email" class="form-control">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="form-group">
+                <label class="form-label">Age</label>
+                <input type="number" id="edit-profile-age" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Gender</label>
+                <select id="edit-profile-gender" class="form-control">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+              <div class="form-group">
+                <label class="form-label">Height (cm)</label>
+                <input type="number" id="edit-profile-height" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Weight (kg)</label>
+                <input type="number" id="edit-profile-weight" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Target (kg)</label>
+                <input type="number" id="edit-profile-target-weight" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Fitness Experience Level</label>
+              <select id="edit-profile-experience" class="form-control">
+                <option value="Beginner">Beginner (0-6 months)</option>
+                <option value="Intermediate">Intermediate (6-24 months)</option>
+                <option value="Advanced">Advanced (2+ years)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Primary Fitness Goal</label>
+              <select id="edit-profile-goal" class="form-control">
+                <option value="Weight Loss">Weight Loss</option>
+                <option value="Muscle Gain">Muscle Gain</option>
+                <option value="Strength Building">Strength Building</option>
+                <option value="General Fitness">General Fitness</option>
+                <option value="Weight Maintenance">Weight Maintenance</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Available Gym Equipment</label>
+              <select id="edit-profile-equipment" class="form-control">
+                <option value="Full Gym">Full Commercial Gym</option>
+                <option value="Dumbbells only">Dumbbells & Bench</option>
+                <option value="Bodyweight">Bodyweight & Calisthenics</option>
+              </select>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="form-group">
+                <label class="form-label">Daily Calorie Target</label>
+                <input type="number" id="edit-profile-calorie-target" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Daily Water (ml)</label>
+                <input type="number" id="edit-profile-water-target" class="form-control">
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-block" id="profile-save-form-btn">
+              <i data-lucide="check"></i> Save Changes
+            </button>
+          </div>
+
+          <!-- Theme & Appearance -->
+          <div class="card" style="margin-bottom: 18px;">
+            <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin-bottom: 12px;">App Theme & Color Accent</h4>
+            
+            <div style="display: flex; gap: 8px;">
+              <button class="option-select-card theme-option-btn selected" data-theme="obsidian-amber" style="flex: 1; padding: 10px; flex-direction: column; text-align: center; gap: 6px;">
+                <span style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #ff7a29, #ff5500);"></span>
+                <span style="font-size: 11.5px; font-weight: 700;">Obsidian Amber</span>
+              </button>
+              <button class="option-select-card theme-option-btn" data-theme="mint-emerald" style="flex: 1; padding: 10px; flex-direction: column; text-align: center; gap: 6px;">
+                <span style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #34d399, #059669);"></span>
+                <span style="font-size: 11.5px; font-weight: 700;">Mint Emerald</span>
+              </button>
+              <button class="option-select-card theme-option-btn" data-theme="cyber-blue" style="flex: 1; padding: 10px; flex-direction: column; text-align: center; gap: 6px;">
+                <span style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #38bdf8, #0284c7);"></span>
+                <span style="font-size: 11.5px; font-weight: 700;">Cyber Blue</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Data Backup, Export & Restore -->
+          <div class="card" style="margin-bottom: 24px;">
+            <h4 style="font-size: 15px; font-weight: 700; color: #ffffff; margin-bottom: 6px;">Data Backup & Recovery</h4>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 14px;">
+              FitMate stores 100% of your routines, logs, and progress securely on your local device.
+            </p>
+
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+              <button class="btn btn-secondary btn-block btn-sm" id="settings-export-json-btn">
+                <i data-lucide="download"></i> Export Backup (JSON)
+              </button>
+              
+              <label for="settings-import-json-file" class="btn btn-secondary btn-block btn-sm" style="cursor: pointer; text-align: center;">
+                <i data-lucide="upload"></i> Restore Backup
+              </label>
+              <input type="file" id="settings-import-json-file" accept=".json" style="display: none;">
+            </div>
+
+            <button class="btn btn-ghost btn-block btn-sm" id="settings-reset-data-btn" style="color: var(--danger);">
+              <i data-lucide="rotate-ccw"></i> Reset to Sample Data
+            </button>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- ==================== FLOATING BOTTOM NAVIGATION DOCK ==================== -->
+      <!-- Styled exactly as the floating pill dock in the reference image -->
+      <nav class="dock-nav-container">
+        <div class="dock-pill">
+          <!-- 1. Home -->
+          <button class="dock-item active" data-screen="screen-home" title="Home Dashboard">
+            <i data-lucide="home"></i>
+            <span class="dock-label">Home</span>
+          </button>
+
+          <!-- 2. Workout -->
+          <button class="dock-item" data-screen="screen-workout" title="Workout Routines">
+            <i data-lucide="file-text"></i>
+            <span class="dock-label">Workout</span>
+          </button>
+
+          <!-- 3. AI Coach -->
+          <button class="dock-item" data-screen="screen-ai-chat" title="FitMate AI Coach">
+            <i data-lucide="sparkles"></i>
+            <span class="dock-label">AI Coach</span>
+          </button>
+
+          <!-- 4. Progress -->
+          <button class="dock-item" data-screen="screen-progress" title="Progress & Analytics">
+            <i data-lucide="calendar"></i>
+            <span class="dock-label">Progress</span>
+          </button>
+
+          <!-- 5. Profile -->
+          <button class="dock-item" data-screen="screen-profile" title="Athlete Profile">
+            <i data-lucide="box"></i>
+            <span class="dock-label">Profile</span>
+          </button>
+        </div>
+      </nav>
+
+    </div><!-- End .mobile-device-frame -->
+  </div><!-- End .desktop-wrapper -->
+
+
+  <!-- ======================================================== -->
+  <!-- MODALS, OVERLAYS, REST TIMERS & BOTTOM SHEETS            -->
+  <!-- ======================================================== -->
+
+  <!-- SPLASH SCREEN -->
+  <div id="fitmate-splash-screen" class="splash-screen">
+    <div class="splash-logo-circle">
+      <i data-lucide="dumbbell" style="color: #ffffff; width: 48px; height: 48px;"></i>
+    </div>
+    <div style="text-align: center;">
+      <h1 class="splash-title">FitMate</h1>
+      <p class="splash-tagline">Your Personal Fitness Companion</p>
+    </div>
+    <div style="display: flex; gap: 6px; margin-top: 14px;">
+      <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent-primary); animation: pulseLogo 1.2s infinite alternate;"></span>
+    </div>
+  </div>
+
+  <!-- ONBOARDING FLOW MODAL -->
+  <div id="screen-onboarding" class="onboarding-screen hide">
+    <div class="onboarding-step-indicator">
+      <div class="step-indicator-bar active" id="onboarding-bar-1"></div>
+      <div class="step-indicator-bar" id="onboarding-bar-2"></div>
+      <div class="step-indicator-bar" id="onboarding-bar-3"></div>
+      <div class="step-indicator-bar" id="onboarding-bar-4"></div>
+    </div>
+
+    <!-- Step 1: Personal Profile -->
+    <div id="onboarding-step-1" class="onboarding-step-view active">
+      <h2 style="font-size: 24px; font-weight: 800; color: #ffffff; margin-bottom: 6px;">Welcome to FitMate!</h2>
+      <p style="font-size: 13.5px; color: var(--text-secondary); margin-bottom: 24px;">Let's customize your personal workout and nutrition experience.</p>
+
+      <div class="form-group">
+        <label class="form-label">What is your name?</label>
+        <input type="text" id="onboard-name" class="form-control" placeholder="Enter your full name" value="">
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div class="form-group">
+          <label class="form-label">Age</label>
+          <input type="number" id="onboard-age" class="form-control" value="26">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Gender</label>
+          <select id="onboard-gender" class="form-control">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Body Stats -->
+    <div id="onboarding-step-2" class="onboarding-step-view">
+      <h2 style="font-size: 24px; font-weight: 800; color: #ffffff; margin-bottom: 6px;">Body Dimensions</h2>
+      <p style="font-size: 13.5px; color: var(--text-secondary); margin-bottom: 24px;">Used for accurate metabolic and calorie calculations.</p>
+
+      <div class="form-group">
+        <label class="form-label">Height (cm)</label>
+        <input type="number" id="onboard-height" class="form-control" value="175">
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div class="form-group">
+          <label class="form-label">Current Weight (kg)</label>
+          <input type="number" id="onboard-weight" class="form-control" value="74.5">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Target Weight (kg)</label>
+          <input type="number" id="onboard-target-weight" class="form-control" value="70.0">
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Experience & Goal -->
+    <div id="onboarding-step-3" class="onboarding-step-view">
+      <h2 style="font-size: 24px; font-weight: 800; color: #ffffff; margin-bottom: 6px;">Fitness Goals</h2>
+      <p style="font-size: 13.5px; color: var(--text-secondary); margin-bottom: 20px;">What is your primary training focus right now?</p>
+
+      <label class="form-label" style="margin-bottom: 8px;">Primary Goal</label>
+      <div class="onboarding-option-card option-select-card selected" data-group="goal" data-val="Muscle Gain">
+        <div>
+          <div style="font-weight: 700; color: #ffffff;">Muscle Gain</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">Build hypertrophy and functional mass</div>
+        </div>
+        <i data-lucide="check" style="color: var(--accent-primary);"></i>
+      </div>
+
+      <div class="onboarding-option-card option-select-card" data-group="goal" data-val="Weight Loss">
+        <div>
+          <div style="font-weight: 700; color: #ffffff;">Weight Loss</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">Burn body fat and sculpt lean definition</div>
+        </div>
+      </div>
+
+      <div class="onboarding-option-card option-select-card" data-group="goal" data-val="Strength Building">
+        <div>
+          <div style="font-weight: 700; color: #ffffff;">Strength Building</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">Increase 1RM on compound lifts</div>
+        </div>
+      </div>
+
+      <label class="form-label" style="margin: 16px 0 8px 0;">Experience Level</label>
+      <div style="display: flex; gap: 8px;">
+        <div class="onboarding-option-card option-select-card" data-group="exp" data-val="Beginner" style="flex: 1; text-align: center; justify-content: center;">
+          <div style="font-weight: 700; font-size: 13px;">Beginner</div>
+        </div>
+        <div class="onboarding-option-card option-select-card selected" data-group="exp" data-val="Intermediate" style="flex: 1; text-align: center; justify-content: center;">
+          <div style="font-weight: 700; font-size: 13px;">Intermediate</div>
+        </div>
+        <div class="onboarding-option-card option-select-card" data-group="exp" data-val="Advanced" style="flex: 1; text-align: center; justify-content: center;">
+          <div style="font-weight: 700; font-size: 13px;">Advanced</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Equipment & Days -->
+    <div id="onboarding-step-4" class="onboarding-step-view">
+      <h2 style="font-size: 24px; font-weight: 800; color: #ffffff; margin-bottom: 6px;">Available Equipment</h2>
+      <p style="font-size: 13.5px; color: var(--text-secondary); margin-bottom: 20px;">Where will you be training?</p>
+
+      <div class="onboarding-option-card option-select-card selected" data-group="equip" data-val="Full Gym">
+        <div>
+          <div style="font-weight: 700; color: #ffffff;">Full Commercial Gym</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">Barbells, cables, dumbbells, and all machines</div>
+        </div>
+        <i data-lucide="check" style="color: var(--accent-primary);"></i>
+      </div>
+
+      <div class="onboarding-option-card option-select-card" data-group="equip" data-val="Dumbbells only">
+        <div>
+          <div style="font-weight: 700; color: #ffffff;">Dumbbells & Bench</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">Home gym dumbbell set</div>
+        </div>
+      </div>
+
+      <div class="onboarding-option-card option-select-card" data-group="equip" data-val="Bodyweight">
+        <div>
+          <div style="font-weight: 700; color: #ffffff;">Bodyweight / Calisthenics</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">No equipment required</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Actions Row -->
+    <div style="margin-top: auto; display: flex; gap: 12px; padding-top: 20px;">
+      <button class="btn btn-ghost" id="onboarding-prev-btn" style="flex: 1; visibility: hidden;">Back</button>
+      <button class="btn btn-primary" id="onboarding-next-btn" style="flex: 2;">Next Step →</button>
+    </div>
+  </div>
+
+  <!-- SMART REST TIMER OVERLAY -->
+  <div id="rest-timer-modal" class="rest-timer-modal">
+    <div class="rest-timer-card">
+      <span class="card-subtitle" style="color: var(--accent-primary);">Active Rest Period</span>
+      <h3 style="font-size: 18px; font-weight: 800; color: #ffffff; margin-top: 4px;">Catch Your Breath</h3>
+      
+      <div class="rest-countdown-circle" id="rest-timer-countdown">01:00</div>
+      
+      <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 18px;">
+        Lower heart rate & replenish muscular ATP for the next set.
+      </p>
+
+      <div style="display: flex; gap: 10px;">
+        <button class="btn btn-secondary btn-block" id="rest-timer-add30-btn">+30 Sec</button>
+        <button class="btn btn-primary btn-block" id="rest-timer-skip-btn">Skip Rest</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVE CAMERA SCANNER MODAL -->
+  <div id="scanner-camera-modal" class="fitmate-modal-backdrop">
+    <div class="fitmate-bottom-sheet" style="max-height: 94vh;">
+      <div class="sheet-handle-bar"></div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <div>
+          <span class="card-subtitle" style="color: var(--accent-primary);">Vision AI Recognition</span>
+          <h3 style="font-size: 18px; font-weight: 800; color: #ffffff;">Scan Gym Machine</h3>
+        </div>
+        <button class="icon-button modal-close-trigger" id="scanner-close-camera-btn">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <!-- Live Video / Viewfinder -->
+      <div class="camera-scanner-view">
+        <video id="scanner-live-video" class="camera-video-element" autoplay playsinline muted></video>
+        <div class="scanner-overlay-reticle">
+          <div style="font-size: 12px; color: var(--accent-primary); font-weight: 700; background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 6px;">
+            Target gym machine or equipment
+          </div>
+          <div class="scanner-laser-line"></div>
+          <div style="font-size: 11px; color: var(--text-secondary); background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px;">
+            Keep machine steady in frame
+          </div>
+        </div>
+      </div>
+
+      <!-- Capture / Presets -->
+      <div style="display: flex; gap: 10px; margin-bottom: 14px;">
+        <button class="btn btn-primary btn-block" id="scanner-capture-snap-btn">
+          <i data-lucide="camera"></i> Capture & Identify
+        </button>
+      </div>
+
+      <div style="font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 10px;">
+        Or select a sample gym machine to test instant recognition:
+      </div>
+
+      <div style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px;">
+        <button class="chip" onclick="AIChat.testIdentifyPresetMachine(0)">Lat Pulldown</button>
+        <button class="chip" onclick="AIChat.testIdentifyPresetMachine(1)">Leg Press</button>
+        <button class="chip" onclick="AIChat.testIdentifyPresetMachine(2)">Smith Machine</button>
+        <button class="chip" onclick="AIChat.testIdentifyPresetMachine(3)">Cable Station</button>
+        <button class="chip" onclick="AIChat.testIdentifyPresetMachine(4)">Pec Deck</button>
+        <button class="chip" onclick="AIChat.testIdentifyPresetMachine(5)">Seated Row</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXERCISE DETAILS MODAL -->
+  <div id="modal-exercise-detail" class="fitmate-modal-backdrop">
+    <div class="fitmate-bottom-sheet">
+      <div class="sheet-handle-bar"></div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+        <div>
+          <span class="card-subtitle" id="modal-ex-category">Chest • Barbell</span>
+          <h3 style="font-size: 20px; font-weight: 800; color: #ffffff; margin-top: 2px;" id="modal-ex-title">Barbell Bench Press</h3>
+        </div>
+        <span class="badge-pill badge-green" id="modal-ex-difficulty">Intermediate</span>
+      </div>
+
+      <div style="background: #201c1a; border-radius: 12px; padding: 12px; margin-bottom: 14px; border: 1px solid var(--border-card);">
+        <div style="font-size: 12px; color: var(--text-accent); font-weight: 700;">Target Muscles</div>
+        <div style="font-size: 13.5px; color: #ffffff; font-weight: 600; margin-top: 2px;">
+          Primary: <span id="modal-ex-primary-muscles">Pectoralis Major</span>
+        </div>
+        <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">
+          Secondary: <span id="modal-ex-secondary-muscles">Triceps, Anterior Deltoids</span>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;">
+        <div class="card" style="padding: 10px; text-align: center;">
+          <span class="card-subtitle">Suggested Sets</span>
+          <div style="font-size: 16px; font-weight: 800; color: #ffffff;" id="modal-ex-suggested-sets">3 - 4</div>
+        </div>
+        <div class="card" style="padding: 10px; text-align: center;">
+          <span class="card-subtitle">Suggested Reps</span>
+          <div style="font-size: 16px; font-weight: 800; color: #ffffff;" id="modal-ex-suggested-reps">8 - 12</div>
+        </div>
+      </div>
+
+      <h4 style="font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Execution Instructions</h4>
+      <ol id="modal-ex-instructions" style="padding-left: 18px; margin-bottom: 16px; font-size: 13px;"></ol>
+
+      <h4 style="font-size: 14px; font-weight: 700; color: var(--danger); margin-bottom: 8px;">Common Mistakes to Avoid</h4>
+      <ul id="modal-ex-mistakes" style="padding-left: 18px; margin-bottom: 16px; font-size: 12.5px;"></ul>
+
+      <div style="background: rgba(255, 122, 41, 0.08); border-radius: 10px; padding: 12px; margin-bottom: 18px; border: 1px solid rgba(255, 122, 41, 0.2);">
+        <div style="font-size: 12px; font-weight: 700; color: var(--accent-primary); margin-bottom: 2px;">💡 Pro Form Cue:</div>
+        <div style="font-size: 12.5px; color: var(--text-secondary);" id="modal-ex-tips">Keep shoulder blades packed.</div>
+      </div>
+
+      <button class="btn btn-primary btn-block" onclick="ExerciseModule.addSelectedToActiveBuilder()">
+        <i data-lucide="plus"></i> Add to Routine Builder
+      </button>
+    </div>
+  </div>
+
+  <!-- EXERCISE PICKER MODAL (Inside Routine Builder) -->
+  <div id="modal-exercise-picker" class="fitmate-modal-backdrop">
+    <div class="fitmate-bottom-sheet">
+      <div class="sheet-handle-bar"></div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-size: 18px; font-weight: 800; color: #ffffff;">Select Exercise</h3>
+        <button class="icon-button modal-close-trigger"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 12px;">
+        <input type="text" class="form-control" placeholder="Search exercise name..." oninput="Workout.renderExercisePicker('All', this.value)">
+      </div>
+
+      <div id="picker-exercise-list" style="max-height: 50vh; overflow-y: auto;"></div>
+    </div>
+  </div>
+
+  <!-- FOOD PICKER MODAL -->
+  <div id="modal-nutrition-food-picker" class="fitmate-modal-backdrop">
+    <div class="fitmate-bottom-sheet">
+      <div class="sheet-handle-bar"></div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <div>
+          <span class="card-subtitle">Log Meal</span>
+          <h3 style="font-size: 18px; font-weight: 800; color: #ffffff;">Add Food to <span id="modal-picker-meal-name">Breakfast</span></h3>
+        </div>
+        <button class="icon-button modal-close-trigger"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 14px;">
+        <input type="text" id="nutrition-food-search-input" class="form-control" placeholder="Search Rice, Ruti, Chicken, Fish, Dal, Eggs...">
+      </div>
+
+      <div id="nutrition-picker-list" style="max-height: 50vh; overflow-y: auto;"></div>
+    </div>
+  </div>
+
+  <!-- FOOD PORTION ADJUST MODAL -->
+  <div id="modal-food-portion-adjust" class="fitmate-modal-backdrop">
+    <div class="fitmate-bottom-sheet">
+      <div class="sheet-handle-bar"></div>
+      
+      <h3 style="font-size: 18px; font-weight: 800; color: #ffffff; margin-bottom: 4px;" id="portion-modal-food-name">Food Name</h3>
+      <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 16px;" id="portion-modal-serving-desc">Standard serving</p>
+
+      <div class="form-group">
+        <label class="form-label">Serving Quantity (Grams or Units)</label>
+        <input type="number" id="portion-modal-grams-input" class="form-control" value="100">
+      </div>
+
+      <!-- Macro Calculated Grid -->
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 16px 0; text-align: center;">
+        <div class="card" style="padding: 10px 4px;">
+          <span class="card-subtitle" style="font-size: 10px;">Calories</span>
+          <div style="font-size: 15px; font-weight: 800; color: var(--accent-primary);" id="portion-calc-calories">195 kcal</div>
+        </div>
+        <div class="card" style="padding: 10px 4px;">
+          <span class="card-subtitle" style="font-size: 10px;">Protein</span>
+          <div style="font-size: 15px; font-weight: 800; color: #38bdf8;" id="portion-calc-protein">4.1g</div>
+        </div>
+        <div class="card" style="padding: 10px 4px;">
+          <span class="card-subtitle" style="font-size: 10px;">Carbs</span>
+          <div style="font-size: 15px; font-weight: 800; color: #ffffff;" id="portion-calc-carbs">43.5g</div>
+        </div>
+        <div class="card" style="padding: 10px 4px;">
+          <span class="card-subtitle" style="font-size: 10px;">Fat</span>
+          <div style="font-size: 15px; font-weight: 800; color: #fbbf24;" id="portion-calc-fat">0.5g</div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-block" id="portion-modal-confirm-btn">
+        <i data-lucide="check"></i> Confirm & Log Food
+      </button>
+    </div>
+  </div>
+
+  <!-- FINISH WORKOUT SUMMARY MODAL -->
+  <div id="modal-finish-workout-summary" class="fitmate-modal-backdrop">
+    <div class="fitmate-bottom-sheet">
+      <div class="sheet-handle-bar"></div>
+      
+      <div style="text-align: center; margin-bottom: 16px;">
+        <span style="font-size: 38px;">🏆</span>
+        <h3 style="font-size: 22px; font-weight: 800; color: #ffffff; margin-top: 6px;">Workout Completed!</h3>
+        <p style="font-size: 12.5px; color: var(--text-secondary);">Outstanding consistency and physical effort.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 18px; text-align: center;">
+        <div class="card" style="padding: 10px 4px;">
+          <span class="card-subtitle" style="font-size: 10px;">DURATION</span>
+          <div style="font-size: 14px; font-weight: 800; color: #ffffff;" id="finish-modal-duration">52 mins</div>
+        </div>
+        <div class="card" style="padding: 10px 4px;">
+          <span class="card-subtitle" style="font-size: 10px;">VOLUME</span>
+          <div style="font-size: 14px; font-weight: 800; color: var(--accent-primary);" id="finish-modal-volume">6,420 kg</div>
+        </div>
+        <div class="card" style="padding: 10px 4px;">
+          <span class="card-subtitle" style="font-size: 10px;">SETS DONE</span>
+          <div style="font-size: 14px; font-weight: 800; color: #ffffff;" id="finish-modal-sets">17 sets</div>
+        </div>
+        <div class="card" style="padding: 10px 4px;">
+          <span class="card-subtitle" style="font-size: 10px;">BURNED</span>
+          <div style="font-size: 14px; font-weight: 800; color: var(--success);" id="finish-modal-calories">~380 kcal</div>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 16px;">
+        <label class="form-label">Personal Notes or How You Felt</label>
+        <input type="text" id="finish-workout-notes" class="form-control" placeholder="e.g. Added weight on bench press, felt energetic!">
+      </div>
+
+      <button class="btn btn-primary btn-block" onclick="Workout.confirmSaveWorkout()">
+        <i data-lucide="award"></i> Save & Celebrate Session
+      </button>
+    </div>
+  </div>
+
+  <!-- LOG WEIGHT MODAL -->
+  <div id="modal-log-weight" class="fitmate-modal-backdrop">
+    <div class="fitmate-bottom-sheet">
+      <div class="sheet-handle-bar"></div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-size: 18px; font-weight: 800; color: #ffffff;">Log Daily Weight</h3>
+        <button class="icon-button modal-close-trigger"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Weight (kg)</label>
+        <input type="number" step="0.1" id="modal-weight-input" class="form-control" value="74.5">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Date</label>
+        <input type="date" id="modal-weight-date-input" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Note (optional)</label>
+        <input type="text" id="modal-weight-note-input" class="form-control" placeholder="e.g. Morning fasted weigh-in">
+      </div>
+
+      <button class="btn btn-primary btn-block" id="modal-save-weight-btn">
+        <i data-lucide="check"></i> Save Weight Entry
+      </button>
+    </div>
+  </div>
+
+  <!-- LOG MEASUREMENTS MODAL -->
+  <div id="modal-log-measurements" class="fitmate-modal-backdrop">
+    <div class="fitmate-bottom-sheet">
+      <div class="sheet-handle-bar"></div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-size: 18px; font-weight: 800; color: #ffffff;">Body Tape Measurements</h3>
+        <button class="icon-button modal-close-trigger"><i data-lucide="x"></i></button>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-group">
+          <label class="form-label">Waist (cm)</label>
+          <input type="number" step="0.5" id="modal-measure-waist" class="form-control" placeholder="81.5">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Chest (cm)</label>
+          <input type="number" step="0.5" id="modal-measure-chest" class="form-control" placeholder="104.0">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-group">
+          <label class="form-label">Arms (cm)</label>
+          <input type="number" step="0.5" id="modal-measure-arms" class="form-control" placeholder="37.5">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Thighs (cm)</label>
+          <input type="number" step="0.5" id="modal-measure-thighs" class="form-control" placeholder="58.0">
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-block" id="modal-save-measurements-btn" style="margin-top: 10px;">
+        <i data-lucide="check"></i> Save Measurements
+      </button>
+    </div>
+  </div>
+
+  <!-- ADD PR MODAL -->
+  <div id="modal-add-pr" class="fitmate-modal-backdrop">
+    <div class="fitmate-bottom-sheet">
+      <div class="sheet-handle-bar"></div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-size: 18px; font-weight: 800; color: #ffffff;">Log Personal Record (PR)</h3>
+        <button class="icon-button modal-close-trigger"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Exercise Name</label>
+        <input type="text" id="modal-pr-exercise" class="form-control" placeholder="e.g. Barbell Bench Press">
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-group">
+          <label class="form-label">Weight (kg)</label>
+          <input type="number" id="modal-pr-weight" class="form-control" placeholder="90">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Repetitions</label>
+          <input type="number" id="modal-pr-reps" class="form-control" placeholder="5" value="1">
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-block" id="modal-save-pr-btn">
+        <i data-lucide="award"></i> Record PR
+      </button>
+    </div>
+  </div>
+
+  <!-- CALENDAR DAY DETAILS MODAL -->
+  <div id="modal-calendar-day-details" class="fitmate-modal-backdrop">
+    <div class="fitmate-bottom-sheet">
+      <div class="sheet-handle-bar"></div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-size: 18px; font-weight: 800; color: #ffffff;" id="day-details-modal-title">Day Activity</h3>
+        <button class="icon-button modal-close-trigger"><i data-lucide="x"></i></button>
+      </div>
+
+      <div id="day-details-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Application Core Scripts -->
+  <script src="data/exercises.js"></script>
+  <script src="data/foods.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/workout.js"></script>
+  <script src="js/exercise.js"></script>
+  <script src="js/ai-chat.js"></script>
+  <script src="js/nutrition.js"></script>
+  <script src="js/progress.js"></script>
+  <script src="js/calculators.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
